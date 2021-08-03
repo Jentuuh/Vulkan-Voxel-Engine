@@ -151,12 +151,14 @@
     <ClCompile Include="vmc_device.cpp" />
     <ClCompile Include="vmc_pipeline.cpp" />
     <ClCompile Include="vmc_app.cpp" />
+    <ClCompile Include="vmc_swap_chain.cpp" />
     <ClCompile Include="vmc_window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vmc_app.hpp" />
     <ClInclude Include="vmc_device.hpp" />
     <ClInclude Include="vmc_pipeline.hpp" />
+    <ClInclude Include="vmc_swap_chain.hpp" />
     <ClInclude Include="vmc_window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
