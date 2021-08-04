@@ -33,6 +33,7 @@ namespace vmc {
 		VmcPipeline(const VmcPipeline&) = delete;
 		VmcPipeline operator=(const VmcPipeline&) = delete;
 
+		void bind(VkCommandBuffer commandBuffer);
 		static PipelineConfigInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
 	private:
 		static std::vector<char> readFile(const std::string& filePath);
