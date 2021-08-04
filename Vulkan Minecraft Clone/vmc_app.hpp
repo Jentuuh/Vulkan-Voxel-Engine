@@ -3,6 +3,7 @@
 #include "vmc_pipeline.hpp"
 #include "vmc_device.hpp"
 #include "vmc_window.hpp"
+#include "vmc_model.hpp"
 
 // std 
 #include <memory>
@@ -26,6 +27,8 @@ namespace vmc {
 		void createPipeline();
 		void createCommandBuffers();
 		void drawFrame();
+		void loadModels();
+
 
 		VmcWindow vmcWindow{ WIDTH, HEIGHT, "Hello Vulkan!" };
 		VmcDevice vmcDevice{ vmcWindow };
@@ -35,6 +38,8 @@ namespace vmc {
 		VkPipelineLayout pipelineLayout;
 
 		std::vector<VkCommandBuffer> commandBuffers;
+
+		std::unique_ptr<VmcModel> testModel;
 	};
 }
 

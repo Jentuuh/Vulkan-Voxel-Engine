@@ -7,6 +7,7 @@
 namespace vmc {
 	VmcApp::VmcApp()
 	{
+		loadModels();
 		createPipelineLayout();
 		createPipeline();
 		createCommandBuffers();
@@ -90,7 +91,8 @@ namespace vmc {
 			vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 			vmcPipeline->bind(commandBuffers[i]);
-			vkCmdDraw(commandBuffers[i], 3, 1, 0, 0);
+			testModel->bind(commandBuffers[i]);
+			testModel->draw(commandBuffers[i]);
 
 			vkCmdEndRenderPass(commandBuffers[i]);
 			if (vkEndCommandBuffer(commandBuffers[i]) != VK_SUCCESS) {
@@ -113,5 +115,16 @@ namespace vmc {
 			throw std::runtime_error("failed to present swap chain image!");
 		}
 	}
+
+	void VmcApp::loadModels()
+	{
+		std::vector<VmcModel::Vertex> vertices{
+		{{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+		{{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+		{{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}} };
+
+		testModel = std::make_unique<VmcModel>(vmcDevice, vertices);
+	}
+
 
 }

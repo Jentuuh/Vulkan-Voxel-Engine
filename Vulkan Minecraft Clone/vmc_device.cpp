@@ -531,4 +531,4 @@ void VmcDevice::createImageWithInfo(
   }
 }
 
-}  // namespace lve
+}  // namespace vmc
