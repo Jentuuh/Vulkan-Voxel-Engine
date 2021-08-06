@@ -120,6 +120,9 @@ namespace vmc {
 
 	void VmcApp::recordCommandBuffer(int imageIndex)
 	{
+		static int frame = 0;
+		frame = (frame + 1) % 1000;
+
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 
@@ -158,7 +161,7 @@ namespace vmc {
 		testModel->bind(commandBuffers[imageIndex]);
 		for (int j = 0; j < 4; j++) {
 			TestPushConstant push{};
-			push.offset = { 0.0f, -0.4f + j * 0.25f };
+			push.offset = { -0.5f + 0.01 * frame * 0.02f, -0.4f + j * 0.25f };
 			push.color = { 0.0f, 0.0f, 0.2f + 0.2f * j };
 
 			vkCmdPushConstants(
