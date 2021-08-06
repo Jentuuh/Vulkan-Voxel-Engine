@@ -33,7 +33,7 @@ namespace vmc {
 		void recordCommandBuffer(int imageIndex);
 
 
-		VmcWindow vmcWindow{ WIDTH, HEIGHT, "Hello Vulkan!" };
+		VmcWindow vmcWindow{ WIDTH, HEIGHT, "Hello Duyên!" };
 		VmcDevice vmcDevice{ vmcWindow };
 		std::unique_ptr<VmcSwapChain> vmcSwapChain;
 
