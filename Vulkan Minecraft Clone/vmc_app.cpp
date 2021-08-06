@@ -9,17 +9,19 @@
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
+#include<glm/gtc/constants.hpp>
 
 namespace vmc {
 
 	struct TestPushConstant {
+		glm::mat2 transform{ 1.f };
 		glm::vec2 offset;
 		alignas(16) glm::vec3 color;
 	};
 
 	VmcApp::VmcApp()
 	{
-		loadModels();
+		loadGameObjects();
 		createPipelineLayout();
 		recreateSwapchain();
 		createCommandBuffers();
@@ -120,9 +122,6 @@ namespace vmc {
 
 	void VmcApp::recordCommandBuffer(int imageIndex)
 	{
-		static int frame = 0;
-		frame = (frame + 1) % 1000;
-
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 
@@ -157,26 +156,33 @@ namespace vmc {
 		vkCmdSetViewport(commandBuffers[imageIndex], 0, 1, &viewport);
 		vkCmdSetScissor(commandBuffers[imageIndex], 0, 1, &scissor);
 
-		vmcPipeline->bind(commandBuffers[imageIndex]);
-		testModel->bind(commandBuffers[imageIndex]);
-		for (int j = 0; j < 4; j++) {
+		renderGameObjects(commandBuffers[imageIndex]);
+
+		vkCmdEndRenderPass(commandBuffers[imageIndex]);
+		if (vkEndCommandBuffer(commandBuffers[imageIndex]) != VK_SUCCESS) {
+			throw std::runtime_error("failed to record command buffer!");
+		}
+	}
+
+	void VmcApp::renderGameObjects(VkCommandBuffer commandBuffer)
+	{
+		vmcPipeline->bind(commandBuffer);
+
+		for (auto& obj : gameObjects) {
 			TestPushConstant push{};
-			push.offset = { -0.5f + 0.01 * frame * 0.02f, -0.4f + j * 0.25f };
-			push.color = { 0.0f, 0.0f, 0.2f + 0.2f * j };
+			push.offset = obj.transform2d.translation;
+			push.color = obj.color;
+			push.transform = obj.transform2d.mat2();
 
 			vkCmdPushConstants(
-				commandBuffers[imageIndex],
+				commandBuffer,
 				pipelineLayout,
 				VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
 				0,
 				sizeof(TestPushConstant),
 				&push);
-			testModel->draw(commandBuffers[imageIndex]);
-		}
-
-		vkCmdEndRenderPass(commandBuffers[imageIndex]);
-		if (vkEndCommandBuffer(commandBuffers[imageIndex]) != VK_SUCCESS) {
-			throw std::runtime_error("failed to record command buffer!");
+			obj.model->bind(commandBuffer);
+			obj.model->draw(commandBuffer);
 		}
 	}
 
@@ -204,14 +210,23 @@ namespace vmc {
 		}
 	}
 
-	void VmcApp::loadModels()
+	void VmcApp::loadGameObjects()
 	{
 		std::vector<VmcModel::Vertex> vertices{
 		{{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
 		{{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
 		{{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}} };
 
-		testModel = std::make_unique<VmcModel>(vmcDevice, vertices);
+		auto testModel = std::make_shared<VmcModel>(vmcDevice, vertices);
+
+		auto triangle = VmcGameObject::createGameObject();
+		triangle.model = testModel;
+		triangle.color = { .1f, .8f, .1f };
+		triangle.transform2d.translation.x = 0.2f;
+		triangle.transform2d.scale = { 2.f, .5f };
+		triangle.transform2d.rotation = 0.25f * glm::two_pi<float>();	// 90 degree rotation
+
+		gameObjects.push_back(std::move(triangle));
 	}
 
 

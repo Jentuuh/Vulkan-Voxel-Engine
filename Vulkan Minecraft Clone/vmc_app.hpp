@@ -3,7 +3,7 @@
 #include "vmc_pipeline.hpp"
 #include "vmc_device.hpp"
 #include "vmc_window.hpp"
-#include "vmc_model.hpp"
+#include "vmc_game_object.hpp"
 
 // std 
 #include <memory>
@@ -28,9 +28,10 @@ namespace vmc {
 		void createCommandBuffers();
 		void freeCommandBuffers();
 		void drawFrame();
-		void loadModels();
+		void loadGameObjects();
 		void recreateSwapchain();
 		void recordCommandBuffer(int imageIndex);
+		void renderGameObjects(VkCommandBuffer commandBuffer);
 
 
 		VmcWindow vmcWindow{ WIDTH, HEIGHT, "Hello Duyên!" };
@@ -42,7 +43,7 @@ namespace vmc {
 
 		std::vector<VkCommandBuffer> commandBuffers;
 
-		std::unique_ptr<VmcModel> testModel;
+		std::vector<VmcGameObject> gameObjects;
 	};
 }
 

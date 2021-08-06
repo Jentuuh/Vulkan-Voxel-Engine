@@ -36,6 +36,9 @@
     <ClCompile Include="vmc_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vmc_game_object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vmc_window.hpp">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vmc_model.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vmc_game_object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
