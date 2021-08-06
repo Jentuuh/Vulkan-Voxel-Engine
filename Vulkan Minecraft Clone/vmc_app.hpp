@@ -26,13 +26,16 @@ namespace vmc {
 		void createPipelineLayout();
 		void createPipeline();
 		void createCommandBuffers();
+		void freeCommandBuffers();
 		void drawFrame();
 		void loadModels();
+		void recreateSwapchain();
+		void recordCommandBuffer(int imageIndex);
 
 
 		VmcWindow vmcWindow{ WIDTH, HEIGHT, "Hello Vulkan!" };
 		VmcDevice vmcDevice{ vmcWindow };
-		VmcSwapChain vmcSwapChain{ vmcDevice, vmcWindow.getExtent() };
+		std::unique_ptr<VmcSwapChain> vmcSwapChain;
 
 		std::unique_ptr<VmcPipeline> vmcPipeline;
 		VkPipelineLayout pipelineLayout;

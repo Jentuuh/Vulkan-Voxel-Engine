@@ -13,12 +13,25 @@ namespace vmc {
 
 VmcSwapChain::VmcSwapChain(VmcDevice &deviceRef, VkExtent2D extent)
     : device{deviceRef}, windowExtent{extent} {
-  createSwapChain();
-  createImageViews();
-  createRenderPass();
-  createDepthResources();
-  createFramebuffers();
-  createSyncObjects();
+    init();
+}
+
+VmcSwapChain::VmcSwapChain(VmcDevice& deviceRef, VkExtent2D extent, std::shared_ptr<VmcSwapChain> previous)
+    : device{ deviceRef }, windowExtent{ extent }, oldSwapchain{ previous } {
+    init();
+
+    // Old swap chain is no longer needed after swap chain init
+    oldSwapchain = nullptr;
+}
+
+void VmcSwapChain::init()
+{
+    createSwapChain();
+    createImageViews();
+    createRenderPass();
+    createDepthResources();
+    createFramebuffers();
+    createSyncObjects();
 }
 
 VmcSwapChain::~VmcSwapChain() {
@@ -162,7 +175,7 @@ void VmcSwapChain::createSwapChain() {
   createInfo.presentMode = presentMode;
   createInfo.clipped = VK_TRUE;
 
-  createInfo.oldSwapchain = VK_NULL_HANDLE;
+  createInfo.oldSwapchain = oldSwapchain == nullptr ? VK_NULL_HANDLE : oldSwapchain->swapChain;
 
   if (vkCreateSwapchainKHR(device.device(), &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
     throw std::runtime_error("failed to create swap chain!");

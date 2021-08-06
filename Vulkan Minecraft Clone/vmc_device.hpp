@@ -34,8 +34,6 @@ namespace vmc {
       ~VmcDevice();
 
       // Not copyable or movable
-      VmcDevice(const VmcDevice &) = delete;
-      void operator=(const VmcDevice &) = delete;
       VmcDevice(VmcDevice &&) = delete;
       VmcDevice &operator=(VmcDevice &&) = delete;
 
