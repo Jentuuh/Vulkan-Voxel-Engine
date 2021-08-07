@@ -1,12 +1,12 @@
 #pragma once
-#include "vmc_swap_chain.hpp"
-#include "vmc_pipeline.hpp"
+#include "vmc_renderer.hpp"
 #include "vmc_device.hpp"
 #include "vmc_window.hpp"
 #include "vmc_game_object.hpp"
 
 // std 
 #include <memory>
+#include <vector>
 
 namespace vmc {
 	class VmcApp
@@ -23,25 +23,12 @@ namespace vmc {
 
 		void run();
 	private:
-		void createPipelineLayout();
-		void createPipeline();
-		void createCommandBuffers();
-		void freeCommandBuffers();
-		void drawFrame();
 		void loadGameObjects();
-		void recreateSwapchain();
-		void recordCommandBuffer(int imageIndex);
-		void renderGameObjects(VkCommandBuffer commandBuffer);
 
 
 		VmcWindow vmcWindow{ WIDTH, HEIGHT, "Hello Duyên!" };
 		VmcDevice vmcDevice{ vmcWindow };
-		std::unique_ptr<VmcSwapChain> vmcSwapChain;
-
-		std::unique_ptr<VmcPipeline> vmcPipeline;
-		VkPipelineLayout pipelineLayout;
-
-		std::vector<VkCommandBuffer> commandBuffers;
+		VmcRenderer vmcRenderer{ vmcWindow, vmcDevice };
 
 		std::vector<VmcGameObject> gameObjects;
 	};
