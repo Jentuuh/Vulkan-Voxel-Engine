@@ -12,6 +12,7 @@ namespace vmc {
 	class VmcApp
 	{
 	public:
+		const float MAX_FRAME_TIME = .1f;
 		static constexpr int WIDTH = 800;
 		static constexpr int HEIGHT = 600;
 

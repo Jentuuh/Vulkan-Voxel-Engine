@@ -16,7 +16,8 @@ namespace vmc {
         glm::vec3 rotation{};
 
         /**
-         Constructs and returns a TRS-matrix that corresponds to translation * rotation.y * rotation.x * rotation.z * scale.  
+         Constructs and returns a TRS-matrix that corresponds to translation * rotation.y * rotation.x * rotation.z * scale.
+         This "moves" the game object from its local object space into world space (model transform).
          https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix (optimized implementation)
         */
         glm::mat4 mat4() {
