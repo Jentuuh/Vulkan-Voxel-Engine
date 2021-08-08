@@ -60,7 +60,7 @@ namespace vmc {
 	}
 
 
-	void SimpleRenderSystem::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<VmcGameObject>& gameObjects)
+	void SimpleRenderSystem::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<VmcGameObject>& gameObjects, const VmcCamera& camera)
 	{
 		vmcPipeline->bind(commandBuffer);
 
@@ -69,7 +69,7 @@ namespace vmc {
 			obj.transform.rotation.x = glm::mod(obj.transform.rotation.y + 0.00005f, glm::two_pi<float>());
 			TestPushConstant push{};
 			push.color = obj.color;
-			push.transform = obj.transform.mat4();
+			push.transform = camera.getProjection() * obj.transform.mat4();
 
 			vkCmdPushConstants(
 				commandBuffer,

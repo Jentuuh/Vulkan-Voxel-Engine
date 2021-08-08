@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="simple_render_system.cpp" />
+    <ClCompile Include="vmc_camera.cpp" />
     <ClCompile Include="vmc_device.cpp" />
     <ClCompile Include="vmc_game_object.cpp" />
     <ClCompile Include="vmc_model.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="simple_render_system.hpp" />
+    <ClInclude Include="vmc_camera.hpp" />
     <ClInclude Include="vmc_app.hpp" />
     <ClInclude Include="vmc_device.hpp" />
     <ClInclude Include="vmc_game_object.hpp" />

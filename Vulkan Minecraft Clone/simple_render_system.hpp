@@ -1,4 +1,6 @@
 #pragma once
+
+#include "vmc_camera.hpp"
 #include "vmc_pipeline.hpp"
 #include "vmc_device.hpp"
 #include "vmc_game_object.hpp"
@@ -18,7 +20,7 @@ namespace vmc {
 		SimpleRenderSystem(const SimpleRenderSystem&) = delete;
 		SimpleRenderSystem& operator=(const SimpleRenderSystem&) = delete;
 
-		void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<VmcGameObject> &gameObjects);
+		void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<VmcGameObject> &gameObjects, const VmcCamera& camera);
 
 	private:
 		void createPipelineLayout();

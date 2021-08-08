@@ -1,5 +1,6 @@
 #include "vmc_app.hpp"
 #include "simple_render_system.hpp"
+#include "vmc_camera.hpp"
 
 // std
 #include <cassert>
@@ -27,14 +28,19 @@ namespace vmc {
 	void VmcApp::run()
 	{
 		SimpleRenderSystem simpleRenderSystem{ vmcDevice, vmcRenderer.getSwapChainRenderPass() };
+        VmcCamera camera{};
+
 
 		while (!vmcWindow.shouldClose())
 		{
 			glfwPollEvents();
-			
+            float aspect = vmcRenderer.getAspectRatio();
+            //camera.setOrthographicProjection(-aspect, aspect, -1, 1, -1, 1);
+            camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 10.f);
+
 			if (auto commandBuffer = vmcRenderer.beginFrame()) {
 				vmcRenderer.beginSwapChainRenderPass(commandBuffer);
-				simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects);
+				simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
 				vmcRenderer.endSwapChainRenderPass(commandBuffer);
 				vmcRenderer.endFrame();
 			}
@@ -105,7 +111,7 @@ namespace vmc {
 
         auto cube = VmcGameObject::createGameObject();
         cube.model = vmcModel;
-        cube.transform.translation = { .0f, .0f, .5f };
+        cube.transform.translation = { .0f, .0f, 2.5f };
         cube.transform.scale = { .5f, .5f, .5f };
         gameObjects.push_back(std::move(cube));
 	}

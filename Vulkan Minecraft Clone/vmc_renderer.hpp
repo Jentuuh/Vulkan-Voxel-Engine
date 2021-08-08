@@ -21,6 +21,7 @@ namespace vmc {
 		VmcRenderer& operator=(const VmcRenderer&) = delete;
 
 		VkRenderPass getSwapChainRenderPass() const { return vmcSwapChain->getRenderPass(); };
+		float getAspectRatio() const { return vmcSwapChain->extentAspectRatio(); };
 		bool isFrameInProgress() const { return isFrameStarted; };
 		VkCommandBuffer getCurrentCommandBuffer() const {
 			assert(isFrameStarted && "Cannot access command buffer when frame not in progress!");
