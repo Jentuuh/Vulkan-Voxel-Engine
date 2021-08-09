@@ -1,14 +1,30 @@
 #include "vmc_model.hpp"
+#include "vmc_utils.hpp"
 
 // libs
 #define TINYOBJLOADER_IMPLEMENTATION
 #include <tiny_obj_loader.h>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/hash.hpp>
 
 // std
 #include <cassert>
 #include <cstring>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+
+namespace std {
+    template<>
+    struct hash<vmc::VmcModel::Vertex> {
+        size_t operator()(vmc::VmcModel::Vertex const& vertex) const 
+        {
+            size_t seed = 0;
+            vmc::hashCombine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv);
+            return seed;
+        }
+    };
+}
 
 namespace vmc {
 
@@ -162,6 +178,8 @@ namespace vmc {
         vertices.clear();
         indices.clear();
 
+        std::unordered_map<Vertex, uint32_t> uniqueVertices{};
+
         for (const auto& shape : shapes) {
             for (const auto& index : shape.mesh.indices) {
                 Vertex vertex{};
@@ -206,7 +224,13 @@ namespace vmc {
                     };
                 }
 
-                vertices.push_back(vertex);
+                // We avoid vertex duplication by using an index buffer 
+                // (unordered map checks whether a vertex has already been referenced before)
+                if (uniqueVertices.count(vertex) == 0) {
+                    uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());
+                    vertices.push_back(vertex);
+               }
+                indices.push_back(uniqueVertices[vertex]);
             }
         }
     }

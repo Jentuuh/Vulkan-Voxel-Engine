@@ -171,6 +171,7 @@
     <ClInclude Include="vmc_pipeline.hpp" />
     <ClInclude Include="vmc_renderer.hpp" />
     <ClInclude Include="vmc_swap_chain.hpp" />
+    <ClInclude Include="vmc_utils.hpp" />
     <ClInclude Include="vmc_window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
