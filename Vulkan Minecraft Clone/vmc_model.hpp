@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 
 // std 
+#include <memory>
 #include <vector>
 
 namespace vmc {
@@ -15,8 +16,10 @@ namespace vmc {
 	{
 	public:
 		struct Vertex {
-			glm::vec3 position;
-			glm::vec3 color;
+			glm::vec3 position{};
+			glm::vec3 color{};
+			glm::vec3 normal{};
+			glm::vec2 uv{};
 
 			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
 			static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
@@ -26,6 +29,8 @@ namespace vmc {
 		struct Builder {
 			std::vector<Vertex> vertices{};
 			std::vector<uint32_t> indices{};
+
+			void loadModel(const std::string& filePath);
 		};
 
 		VmcModel(VmcDevice &device, const VmcModel::Builder &builder);
@@ -33,6 +38,8 @@ namespace vmc {
 
 		VmcModel(const VmcModel&) = delete;
 		VmcModel& operator=(const VmcModel&) = delete;
+
+		static std::unique_ptr<VmcModel> createModelFromFile(VmcDevice& device, const std::string& filePath);
 
 		void bind(VkCommandBuffer commandBuffer);
 		void draw(VkCommandBuffer commandBuffer);
