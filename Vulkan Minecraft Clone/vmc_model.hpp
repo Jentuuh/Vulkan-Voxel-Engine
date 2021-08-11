@@ -34,6 +34,7 @@ namespace vmc {
 			std::vector<uint32_t> indices{};
 
 			void loadModel(const std::string& filePath);
+			void buildChunkMesh();
 		};
 
 		VmcModel(VmcDevice &device, const VmcModel::Builder &builder);

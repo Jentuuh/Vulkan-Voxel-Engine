@@ -47,10 +47,11 @@ namespace vmc {
             auto newTime = std::chrono::high_resolution_clock::now();
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
-
             frameTime = glm::min(frameTime, MAX_FRAME_TIME);
 
+			// Update camera model (game object that contains camera
             cameraController.moveInPlaneXZ(vmcWindow.getGLFWwindow(), frameTime, viewerObject);
+			// Update camera view matrix
             camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
 
             float aspect = vmcRenderer.getAspectRatio();

@@ -1,5 +1,5 @@
 #include "vmc_app.hpp"
-
+#include "Chunk.hpp"
 // std
 #include <stdlib.h>
 #include <iostream>
@@ -10,7 +10,8 @@ int main()
 	vmc::VmcApp app{};
 	try 
 	{
-		app.run();
+		vmc::Chunk testChunk{ 16 };
+		//app.run();
 	}
 	catch (const std::exception& e)
 	{

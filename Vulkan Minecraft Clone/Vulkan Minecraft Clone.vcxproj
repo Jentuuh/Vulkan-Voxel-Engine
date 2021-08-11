@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="keyboard_movement_controller.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="simple_render_system.cpp" />
@@ -161,6 +162,8 @@
     <ClCompile Include="vmc_window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Chunk.hpp" />
+    <ClInclude Include="enums.hpp" />
     <ClInclude Include="keyboard_movement_controller.hpp" />
     <ClInclude Include="simple_render_system.hpp" />
     <ClInclude Include="vmc_camera.hpp" />
