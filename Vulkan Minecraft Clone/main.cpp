@@ -11,6 +11,7 @@ int main()
 	try 
 	{
 		vmc::Chunk testChunk{ 16 };
+		testChunk.visibleBlockFacesTest();
 		//app.run();
 	}
 	catch (const std::exception& e)
