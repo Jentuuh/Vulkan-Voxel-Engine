@@ -57,7 +57,7 @@
     <ClCompile Include="keyboard_movement_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Chunk.cpp">
+    <ClCompile Include="chunk_component.cpp">
       <Filter>Source Files\World System</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,11 +98,14 @@
     <ClInclude Include="vmc_utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Chunk.hpp">
-      <Filter>Header Files\World System</Filter>
-    </ClInclude>
     <ClInclude Include="enums.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="chunk_component.hpp">
+      <Filter>Header Files\World System</Filter>
+    </ClInclude>
+    <ClInclude Include="block_model.hpp">
+      <Filter>Header Files\World System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #include "vmc_app.hpp"
-#include "Chunk.hpp"
+#include "chunk_component.hpp"
 // std
 #include <stdlib.h>
 #include <iostream>
@@ -10,7 +10,7 @@ int main()
 	vmc::VmcApp app{};
 	try 
 	{
-		vmc::Chunk testChunk{ 16 };
+		vmc::ChunkComponent testChunk{ 16 };
 		testChunk.visibleBlockFacesTest();
 		//app.run();
 	}

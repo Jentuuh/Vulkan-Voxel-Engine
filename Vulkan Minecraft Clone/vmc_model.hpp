@@ -1,6 +1,7 @@
 #pragma once
 
 #include "vmc_device.hpp"
+#include "chunk_component.hpp"
 
 // libs
 #define GLM_FORCE_RADIANS
@@ -34,7 +35,7 @@ namespace vmc {
 			std::vector<uint32_t> indices{};
 
 			void loadModel(const std::string& filePath);
-			void buildChunkMesh();
+			void updateChunkMesh(ChunkComponent chunk);
 		};
 
 		VmcModel(VmcDevice &device, const VmcModel::Builder &builder);

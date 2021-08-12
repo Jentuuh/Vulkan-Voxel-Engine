@@ -1,8 +1,10 @@
-#include "Chunk.hpp"
+#include "chunk_component.hpp"
+#include "vmc_model.hpp"
+#include "block_model.hpp"
 
 #include <iostream>
 namespace vmc {
-	Chunk::Chunk(int width, int height) : width{ width }, height { height } {
+	ChunkComponent::ChunkComponent(int width, int height) : width{ width }, height{ height } {
 		blockMap.resize(height);
 
 
@@ -18,8 +20,7 @@ namespace vmc {
 		}
 	}
 
-
-	std::vector<BlockFace> Chunk::getVisibleBlockFaces(int x, int y, int z)
+	std::vector<BlockFace> ChunkComponent::getVisibleBlockFaces(int x, int y, int z)
 	{
 		std::vector<BlockFace> visibleFaces(0);
 		
@@ -74,7 +75,7 @@ namespace vmc {
 		return visibleFaces;
 	}
 
-	void Chunk::visibleBlockFacesTest() {
+	void ChunkComponent::visibleBlockFacesTest() {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				for (int z = 0; z < width; z++) {
@@ -112,5 +113,51 @@ namespace vmc {
 			std::cout << "---------------------------------------------------------------------------\n";
 		}
 	}
+
+	void ChunkComponent::getVisibleBlockFaceVertices()
+	{
+		std::vector<VmcModel::Vertex> vertices(0);
+		BlockModel block;
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				for (int k = 0; k < width; k++) {
+					std::vector<BlockFace> visibleFaces = getVisibleBlockFaces(k, i, j);
+					VmcModel::Vertex vertex{};
+
+					for (BlockFace face : visibleFaces) {
+						switch (face)
+						{
+						case vmc::BlockFace::up:
+					
+							break;
+						case vmc::BlockFace::down:
+							std::cout << " D ";
+							break;
+						case vmc::BlockFace::left:
+							std::cout << " L ";
+							break;
+						case vmc::BlockFace::right:
+							for (int s = 0; s < 6; s++)
+							{
+								vertex.position = { block.pos_x_face[s].x + BLOCK_X_OFFSET * k, block.pos_x_face[s].y + BLOCK_Y_OFFSET * i, block.pos_x_face[s].z * BLOCK_Z_OFFSET * j};
+								vertices.push_back(vertex);
+							}
+							break;
+						case vmc::BlockFace::front:
+							std::cout << " F ";
+							break;
+						case vmc::BlockFace::back:
+							std::cout << " B ";
+							break;
+						default:
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
 
 }
