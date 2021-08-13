@@ -3,6 +3,13 @@
 namespace vmc {
 
 
+    VmcGameObject::~VmcGameObject()
+    {
+        // Clean up chunk pointer of the chunk that belongs to this gameobject 
+        delete chunk;
+        chunk = NULL;
+    }
+
     /**
     Constructs and returns a TRS-matrix that corresponds to translation * rotation.y * rotation.x * rotation.z * scale.
     This "moves" the game object from its local object space into world space (model transform).

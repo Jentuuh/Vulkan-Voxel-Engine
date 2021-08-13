@@ -35,7 +35,7 @@ namespace vmc {
 			std::vector<uint32_t> indices{};
 
 			void loadModel(const std::string& filePath);
-			void updateChunkMesh(ChunkComponent chunk);
+			void updateChunkMesh(const ChunkComponent* chunk);
 		};
 
 		VmcModel(VmcDevice &device, const VmcModel::Builder &builder);
@@ -45,6 +45,7 @@ namespace vmc {
 		VmcModel& operator=(const VmcModel&) = delete;
 
 		static std::unique_ptr<VmcModel> createModelFromFile(VmcDevice& device, const std::string& filePath);
+		static std::unique_ptr<VmcModel> createChunkModelMesh(VmcDevice& device, const ChunkComponent* chunk);
 
 		void bind(VkCommandBuffer commandBuffer);
 		void draw(VkCommandBuffer commandBuffer);

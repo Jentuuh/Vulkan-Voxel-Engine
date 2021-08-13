@@ -56,7 +56,7 @@ namespace vmc {
 
             float aspect = vmcRenderer.getAspectRatio();
 
-            camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 10.f);
+            camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 1000.f);
 
 			// Render loop
 			if (auto commandBuffer = vmcRenderer.beginFrame()) {
@@ -73,13 +73,13 @@ namespace vmc {
 	void VmcApp::loadGameObjects()
     {
 		// Smooth vase 
-		std::shared_ptr<VmcModel> vmcModel = VmcModel::createModelFromFile(vmcDevice, "../Models/smooth_vase.obj");
+		//std::shared_ptr<VmcModel> vmcModel = VmcModel::createModelFromFile(vmcDevice, "../Models/smooth_vase.obj");
 
-        auto gameObj = VmcGameObject::createGameObject();
-        gameObj.model = vmcModel;
-        gameObj.transform.translation = { .0f, .0f, 2.5f };
-        gameObj.transform.scale = { 1.f, 1.f, 1.f };
-        gameObjects.push_back(std::move(gameObj));
+  //      auto gameObj = VmcGameObject::createGameObject();
+  //      gameObj.model = vmcModel;
+  //      gameObj.transform.translation = { .0f, .0f, 2.5f };
+  //      gameObj.transform.scale = { 1.f, 1.f, 1.f };
+  //      gameObjects.push_back(std::move(gameObj));
 
 
 		// Flat vase
@@ -90,5 +90,13 @@ namespace vmc {
 		gameObj1.transform.translation = { .5f, .0f, 2.5f };
 		gameObj1.transform.scale = { 1.f, 1.f, 1.f };
 		gameObjects.push_back(std::move(gameObj1));
+
+		// Chunk object
+		auto chunkObj = VmcGameObject::createGameObject();
+		std::shared_ptr<VmcModel> chunkModel = VmcModel::createChunkModelMesh(vmcDevice, chunkObj.chunk);
+		chunkObj.model = chunkModel;
+		chunkObj.transform.translation = { .0f, .0f, 2.5f };
+		chunkObj.transform.scale = { .5f, .5f, .5f };
+		gameObjects.push_back(std::move(chunkObj));
 	}
 }

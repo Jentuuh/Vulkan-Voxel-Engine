@@ -1,5 +1,6 @@
 #include "vmc_model.hpp"
 #include "vmc_utils.hpp"
+#include "block_model.hpp"
 
 // libs
 #define TINYOBJLOADER_IMPLEMENTATION
@@ -48,6 +49,14 @@ namespace vmc {
         Builder builder{};
         builder.loadModel(filePath);
         std::cout << "Successfully loaded model with " << builder.vertices.size() << " vertices." << std::endl;
+        return std::make_unique<VmcModel>(device, builder);
+    }
+
+    std::unique_ptr<VmcModel> VmcModel::createChunkModelMesh(VmcDevice& device, const ChunkComponent* chunk)
+    {
+        Builder builder{};
+        builder.updateChunkMesh(chunk);
+        std::cout << "Successfully built chunk model with " << builder.vertices.size() << " vertices." << std::endl;
         return std::make_unique<VmcModel>(device, builder);
     }
 
@@ -237,6 +246,88 @@ namespace vmc {
                     vertices.push_back(vertex);
                }
                 indices.push_back(uniqueVertices[vertex]);
+            }
+        }
+    }
+
+    void VmcModel::Builder::updateChunkMesh(const ChunkComponent* chunk)
+    {
+        BlockModel block;
+
+        for (int i = 0; i < chunk->getHeight(); i++) {
+            for (int j = 0; j < chunk->getWidth(); j++) {
+                for (int k = 0; k < chunk->getWidth(); k++) {
+                    std::vector<BlockFace> visibleFaces = chunk->getVisibleBlockFaces(k, i, j);
+                    VmcModel::Vertex vertex{};
+
+                    for (BlockFace face : visibleFaces) {
+                        switch (face)
+                        {
+                        case vmc::BlockFace::up:
+                            for (int s = 0; s < 6; s++)
+                            {
+                                vertex.position = { block.neg_y_face[s].x + BLOCK_X_OFFSET * k, block.neg_y_face[s].y + BLOCK_Y_OFFSET * i, block.neg_y_face[s].z * BLOCK_Z_OFFSET * j };
+                                vertex.normal = block.normals[s];
+                                vertex.color = { 1.f, 1.f, 1.f };
+                                vertex.uv = block.uvs[s];
+                                vertices.push_back(vertex);
+                            }
+                            break;
+                        case vmc::BlockFace::down:
+                            for (int s = 0; s < 6; s++)
+                            {
+                                vertex.position = { block.pos_y_face[s].x + BLOCK_X_OFFSET * k, block.pos_y_face[s].y + BLOCK_Y_OFFSET * i, block.pos_y_face[s].z * BLOCK_Z_OFFSET * j };
+                                vertex.normal = block.normals[s];
+                                vertex.color = { 1.f, 1.f, 1.f };
+                                vertex.uv = block.uvs[s];
+                                vertices.push_back(vertex);
+                            }
+                            break;
+                        case vmc::BlockFace::left:
+                            for (int s = 0; s < 6; s++)
+                            {
+                                vertex.position = { block.neg_x_face[s].x + BLOCK_X_OFFSET * k, block.neg_x_face[s].y + BLOCK_Y_OFFSET * i, block.neg_x_face[s].z * BLOCK_Z_OFFSET * j };
+                                vertex.normal = block.normals[s];
+                                vertex.color = { 1.f, 1.f, 1.f };
+                                vertex.uv = block.uvs[s];
+                                vertices.push_back(vertex);
+                            }
+                            break;
+                        case vmc::BlockFace::right:
+                            for (int s = 0; s < 6; s++)
+                            {
+                                vertex.position = { block.pos_x_face[s].x + BLOCK_X_OFFSET * k, block.pos_x_face[s].y + BLOCK_Y_OFFSET * i, block.pos_x_face[s].z * BLOCK_Z_OFFSET * j };
+                                vertex.normal = block.normals[s];
+                                vertex.color = { 1.f, 1.f, 1.f };
+                                vertex.uv = block.uvs[s];
+                                vertices.push_back(vertex);
+                            }
+                            break;
+                        case vmc::BlockFace::front:
+                            for (int s = 0; s < 6; s++)
+                            {
+                                vertex.position = { block.neg_z_face[s].x + BLOCK_X_OFFSET * k, block.neg_z_face[s].y + BLOCK_Y_OFFSET * i, block.neg_z_face[s].z * BLOCK_Z_OFFSET * j };
+                                vertex.normal = block.normals[s];
+                                vertex.color = { 1.f, 1.f, 1.f };
+                                vertex.uv = block.uvs[s];
+                                vertices.push_back(vertex);
+                            }
+                            break;
+                        case vmc::BlockFace::back:
+                            for (int s = 0; s < 6; s++)
+                            {
+                                vertex.position = { block.pos_z_face[s].x + BLOCK_X_OFFSET * k, block.pos_z_face[s].y + BLOCK_Y_OFFSET * i, block.pos_z_face[s].z * BLOCK_Z_OFFSET * j };
+                                vertex.normal = block.normals[s];
+                                vertex.color = { 1.f, 1.f, 1.f };
+                                vertex.uv = block.uvs[s];
+                                vertices.push_back(vertex);
+                            }
+                            break;
+                        default:
+                            break;
+                        }
+                    }
+                }
             }
         }
     }

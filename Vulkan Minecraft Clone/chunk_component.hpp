@@ -16,12 +16,14 @@ namespace vmc {
 	{
 	public:
 		ChunkComponent(int width, int height = MAX_CHUNK_HEIGHT);
-	
 
-		void getVisibleBlockFaceVertices();
+		int getWidth() const{ return width; }
+		int getHeight() const{ return height; }
+	
+		std::vector<BlockFace> getVisibleBlockFaces(int x, int y, int z) const;
 		void visibleBlockFacesTest();
 	private:
-		std::vector<BlockFace> getVisibleBlockFaces(int x, int y, int z);
+		
 
 		int height;
 		int width;

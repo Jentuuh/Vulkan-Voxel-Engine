@@ -12,6 +12,7 @@
 namespace vmc {
 
  // TODO: Make `Component` a base type?
+ // TODO: Find cleaner solution for chunk management! (each gameobject currently contains a chunk)
 
     struct TransformComponent {
         glm::vec3 translation{};  // Position offset
@@ -23,8 +24,11 @@ namespace vmc {
     };
      
     class VmcGameObject {
+
     public:
         using id_t = unsigned int;
+
+        ~VmcGameObject();
 
         static VmcGameObject createGameObject() {
             static id_t currentId = 0;
@@ -43,13 +47,12 @@ namespace vmc {
         std::shared_ptr<VmcModel> model{};
         glm::vec3 color{};
         TransformComponent transform{};
+        ChunkComponent * chunk;
 
-        std::unique_ptr<ChunkComponent> chunk;
     private:
         VmcGameObject(id_t objId) : id{ objId } {
-
             // Init chunk of width 16
-            chunk = std::make_unique<ChunkComponent>(16);
+            chunk = new ChunkComponent(16);
         }
         id_t id;
     };
