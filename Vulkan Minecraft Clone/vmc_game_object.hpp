@@ -49,7 +49,7 @@ namespace vmc {
         VmcGameObject(id_t objId) : id{ objId } {
 
             // Init chunk of width 16
-            //chunk = std::make_unique<ChunkComponent>(16);
+            chunk = std::make_unique<ChunkComponent>(16);
         }
         id_t id;
     };

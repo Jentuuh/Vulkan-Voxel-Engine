@@ -129,26 +129,58 @@ namespace vmc {
 						switch (face)
 						{
 						case vmc::BlockFace::up:
-					
+							for (int s = 0; s < 6; s++)
+							{
+								vertex.position = { block.neg_y_face[s].x + BLOCK_X_OFFSET * k, block.neg_y_face[s].y + BLOCK_Y_OFFSET * i, block.neg_y_face[s].z * BLOCK_Z_OFFSET * j };
+								vertex.normal = block.normals[s];
+								vertex.uv = block.uvs[s];
+								vertices.push_back(vertex);
+							}
 							break;
 						case vmc::BlockFace::down:
-							std::cout << " D ";
+							for (int s = 0; s < 6; s++)
+							{
+								vertex.position = { block.pos_y_face[s].x + BLOCK_X_OFFSET * k, block.pos_y_face[s].y + BLOCK_Y_OFFSET * i, block.pos_y_face[s].z * BLOCK_Z_OFFSET * j };
+								vertex.normal = block.normals[s];
+								vertex.uv = block.uvs[s];
+								vertices.push_back(vertex);
+							}
 							break;
 						case vmc::BlockFace::left:
-							std::cout << " L ";
+							for (int s = 0; s < 6; s++)
+							{
+								vertex.position = { block.neg_x_face[s].x + BLOCK_X_OFFSET * k, block.neg_x_face[s].y + BLOCK_Y_OFFSET * i, block.neg_x_face[s].z * BLOCK_Z_OFFSET * j };
+								vertex.normal = block.normals[s];
+								vertex.uv = block.uvs[s];
+								vertices.push_back(vertex);
+							}
 							break;
 						case vmc::BlockFace::right:
 							for (int s = 0; s < 6; s++)
 							{
 								vertex.position = { block.pos_x_face[s].x + BLOCK_X_OFFSET * k, block.pos_x_face[s].y + BLOCK_Y_OFFSET * i, block.pos_x_face[s].z * BLOCK_Z_OFFSET * j};
+								vertex.normal = block.normals[s];
+								vertex.uv = block.uvs[s];
 								vertices.push_back(vertex);
 							}
 							break;
 						case vmc::BlockFace::front:
-							std::cout << " F ";
+							for (int s = 0; s < 6; s++)
+							{
+								vertex.position = { block.neg_z_face[s].x + BLOCK_X_OFFSET * k, block.neg_z_face[s].y + BLOCK_Y_OFFSET * i, block.neg_z_face[s].z * BLOCK_Z_OFFSET * j };
+								vertex.normal = block.normals[s];
+								vertex.uv = block.uvs[s];
+								vertices.push_back(vertex);
+							}
 							break;
 						case vmc::BlockFace::back:
-							std::cout << " B ";
+							for (int s = 0; s < 6; s++)
+							{
+								vertex.position = { block.pos_z_face[s].x + BLOCK_X_OFFSET * k, block.pos_z_face[s].y + BLOCK_Y_OFFSET * i, block.pos_z_face[s].z * BLOCK_Z_OFFSET * j };
+								vertex.normal = block.normals[s];
+								vertex.uv = block.uvs[s];
+								vertices.push_back(vertex);
+							}
 							break;
 						default:
 							break;
