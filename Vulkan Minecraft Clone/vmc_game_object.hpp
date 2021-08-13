@@ -28,8 +28,6 @@ namespace vmc {
     public:
         using id_t = unsigned int;
 
-        ~VmcGameObject();
-
         static VmcGameObject createGameObject() {
             static id_t currentId = 0;
 
