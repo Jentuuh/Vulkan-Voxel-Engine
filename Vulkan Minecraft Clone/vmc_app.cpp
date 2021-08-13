@@ -58,7 +58,7 @@ namespace vmc {
 
             camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 10.f);
 
-
+			// Render loop
 			if (auto commandBuffer = vmcRenderer.beginFrame()) {
 				vmcRenderer.beginSwapChainRenderPass(commandBuffer);
 				simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
@@ -72,12 +72,23 @@ namespace vmc {
  
 	void VmcApp::loadGameObjects()
     {
+		// Smooth vase 
 		std::shared_ptr<VmcModel> vmcModel = VmcModel::createModelFromFile(vmcDevice, "../Models/smooth_vase.obj");
 
         auto gameObj = VmcGameObject::createGameObject();
         gameObj.model = vmcModel;
         gameObj.transform.translation = { .0f, .0f, 2.5f };
-        gameObj.transform.scale = { .5f, .5f, .5f };
+        gameObj.transform.scale = { 1.f, 1.f, 1.f };
         gameObjects.push_back(std::move(gameObj));
+
+
+		// Flat vase
+		std::shared_ptr<VmcModel> vmcModel1 = VmcModel::createModelFromFile(vmcDevice, "../Models/flat_vase.obj");
+
+		auto gameObj1 = VmcGameObject::createGameObject();
+		gameObj1.model = vmcModel1;
+		gameObj1.transform.translation = { .5f, .0f, 2.5f };
+		gameObj1.transform.scale = { 1.f, 1.f, 1.f };
+		gameObjects.push_back(std::move(gameObj1));
 	}
 }

@@ -16,7 +16,6 @@ namespace vmc {
 	{
 	public:
 		ChunkComponent(int width, int height = MAX_CHUNK_HEIGHT);
-		~ChunkComponent();
 	
 
 		void getVisibleBlockFaceVertices();

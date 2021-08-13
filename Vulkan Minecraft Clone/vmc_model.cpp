@@ -148,7 +148,7 @@ namespace vmc {
     }
 
     std::vector<VkVertexInputAttributeDescription> VmcModel::Vertex::getAttributeDescriptions() {
-        std::vector<VkVertexInputAttributeDescription> attributeDescriptions(2);
+        std::vector<VkVertexInputAttributeDescription> attributeDescriptions(4);
 
         // vertex position
         attributeDescriptions[0].binding = 0;
@@ -161,6 +161,18 @@ namespace vmc {
         attributeDescriptions[1].location = 1;
         attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
         attributeDescriptions[1].offset = offsetof(Vertex, color);
+
+        // normal
+        attributeDescriptions[2].binding = 0;
+        attributeDescriptions[2].location = 2;
+        attributeDescriptions[2].format = VK_FORMAT_R32G32B32_SFLOAT;
+        attributeDescriptions[2].offset = offsetof(Vertex, normal);
+
+        // uv 
+        attributeDescriptions[3].binding = 0;
+        attributeDescriptions[3].location = 3;
+        attributeDescriptions[3].format = VK_FORMAT_R32G32_SFLOAT;
+        attributeDescriptions[3].offset = offsetof(Vertex, uv);
         return attributeDescriptions;
     }
 
@@ -194,17 +206,11 @@ namespace vmc {
 
                     // Vertex color expansion (not supported in .OBJ by default, but tinyobjloader supports it)
                     // The vertex RGB color appears in the .OBJ file right after the vertex position.
-                    auto colorIndex = 3 * index.vertex_index + 2;
-                    if (colorIndex < attrib.colors.size()) {
-                        vertex.color = {
-                            attrib.colors[colorIndex -2],
-                            attrib.colors[colorIndex - 1],
-                            attrib.colors[colorIndex - 0],
-                        };
-                    }
-                    else {
-                        vertex.color = { 1.f, 1.f, 1.f }; // default vertex color
-                    }
+                    vertex.color = {
+                            attrib.colors[3 * index.vertex_index + 0],
+                            attrib.colors[3 * index.vertex_index + 1],
+                            attrib.colors[3 * index.vertex_index + 2],
+                    };
                 }
 
                 // Reading normal
