@@ -43,18 +43,18 @@ namespace vmc {
 
 		// Front check
 		if (z + 1 >= blockMap[0].size()) {
-			visibleFaces.push_back(BlockFace::front);
+			visibleFaces.push_back(BlockFace::back);
 		}
 		else if (blockMap[y][z + 1][x] == BlockType::air) {
-			visibleFaces.push_back(BlockFace::front);
+			visibleFaces.push_back(BlockFace::back);
 		}
 
 		// Back check
 		if (z - 1 < 0) {
-			visibleFaces.push_back(BlockFace::back);
+			visibleFaces.push_back(BlockFace::front);
 		}
 		else if (blockMap[y][z - 1][x] == BlockType::air) {
-			visibleFaces.push_back(BlockFace::back);
+			visibleFaces.push_back(BlockFace::front);
 		}
 
 		// Right check

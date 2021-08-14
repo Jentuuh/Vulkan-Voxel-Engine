@@ -8,9 +8,9 @@
 namespace vmc {
 
 	const int MAX_CHUNK_HEIGHT = 16;
-	const int BLOCK_X_OFFSET = 1;
-	const int BLOCK_Y_OFFSET = 1;
-	const int BLOCK_Z_OFFSET = 1;
+	const int BLOCK_X_OFFSET = 2;
+	const int BLOCK_Y_OFFSET = 2;
+	const int BLOCK_Z_OFFSET = 2;
 
 	class ChunkComponent
 	{
