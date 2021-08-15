@@ -24,6 +24,9 @@ namespace vmc {
 	std::vector<BlockFace> ChunkComponent::getVisibleBlockFaces(int x, int y, int z) const
 	{
 		std::vector<BlockFace> visibleFaces(0);
+
+		// Don't draw any 'air' blocks
+		if (blockMap[y][z][x] == BlockType::air) return visibleFaces;
 		
 		// Down check
 		if (y + 1 >= blockMap.size()) {
@@ -41,7 +44,7 @@ namespace vmc {
 			visibleFaces.push_back(BlockFace::up);
 		}
 
-		// Front check
+		// Back check
 		if (z + 1 >= blockMap[0].size()) {
 			visibleFaces.push_back(BlockFace::back);
 		}
@@ -49,7 +52,7 @@ namespace vmc {
 			visibleFaces.push_back(BlockFace::back);
 		}
 
-		// Back check
+		// Front check
 		if (z - 1 < 0) {
 			visibleFaces.push_back(BlockFace::front);
 		}

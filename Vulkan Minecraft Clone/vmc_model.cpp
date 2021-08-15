@@ -266,7 +266,7 @@ namespace vmc {
                         case vmc::BlockFace::up:
                             for (int s = 0; s < 6; s++)
                             {
-                                vertex.position = { block.neg_y_face[s].x + BLOCK_X_OFFSET * j, block.neg_y_face[s].y + BLOCK_Y_OFFSET * i, block.neg_y_face[s].z * BLOCK_Z_OFFSET * k };
+                                vertex.position = { block.neg_y_face[s].x + BLOCK_X_OFFSET * k, block.neg_y_face[s].y + BLOCK_Y_OFFSET * i, block.neg_y_face[s].z * BLOCK_Z_OFFSET * j };
                                 vertex.normal = block.normals[4];
                                 vertex.color = { 0.f, 1.f, 1.f };   // Cyan
                                 vertex.uv = block.uvs[s];
@@ -276,7 +276,7 @@ namespace vmc {
                         case vmc::BlockFace::down:
                             for (int s = 0; s < 6; s++)
                             {
-                                vertex.position = { block.pos_y_face[s].x + BLOCK_X_OFFSET * j, block.pos_y_face[s].y + BLOCK_Y_OFFSET * i, block.pos_y_face[s].z * BLOCK_Z_OFFSET * k };
+                                vertex.position = { block.pos_y_face[s].x + BLOCK_X_OFFSET * k, block.pos_y_face[s].y + BLOCK_Y_OFFSET * i, block.pos_y_face[s].z * BLOCK_Z_OFFSET * j };
                                 vertex.normal = block.normals[1];
                                 vertex.color = { 1.f, 1.f, 0.f };   // Yellow
                                 vertex.uv = block.uvs[s];
@@ -286,7 +286,7 @@ namespace vmc {
                         case vmc::BlockFace::left:
                             for (int s = 0; s < 6; s++)
                             {
-                                vertex.position = { block.neg_x_face[s].x + BLOCK_X_OFFSET * j, block.neg_x_face[s].y + BLOCK_Y_OFFSET * i, block.neg_x_face[s].z * BLOCK_Z_OFFSET * k };
+                                vertex.position = { block.neg_x_face[s].x + BLOCK_X_OFFSET * k, block.neg_x_face[s].y + BLOCK_Y_OFFSET * i, block.neg_x_face[s].z * BLOCK_Z_OFFSET * j };
                                 vertex.normal = block.normals[3];
                                 vertex.color = { 1.f, 0.f, 1.f };   // Purple
                                 vertex.uv = block.uvs[s];
@@ -296,7 +296,7 @@ namespace vmc {
                         case vmc::BlockFace::right:
                             for (int s = 0; s < 6; s++)
                             {
-                                vertex.position = { block.pos_x_face[s].x + BLOCK_X_OFFSET * j, block.pos_x_face[s].y + BLOCK_Y_OFFSET * i, block.pos_x_face[s].z * BLOCK_Z_OFFSET * k };
+                                vertex.position = { block.pos_x_face[s].x + BLOCK_X_OFFSET * k, block.pos_x_face[s].y + BLOCK_Y_OFFSET * i, block.pos_x_face[s].z * BLOCK_Z_OFFSET * j };
                                 vertex.normal = block.normals[0];
                                 vertex.color = { 0.f, 0.f, 1.f };   // Blue
                                 vertex.uv = block.uvs[s];
@@ -306,7 +306,7 @@ namespace vmc {
                         case vmc::BlockFace::front:
                             for (int s = 0; s < 6; s++)
                             {
-                                vertex.position = { block.neg_z_face[s].x + BLOCK_X_OFFSET * j, block.neg_z_face[s].y + BLOCK_Y_OFFSET * i, block.neg_z_face[s].z * BLOCK_Z_OFFSET * k };
+                                vertex.position = { block.neg_z_face[s].x + BLOCK_X_OFFSET * k, block.neg_z_face[s].y + BLOCK_Y_OFFSET * i, block.neg_z_face[s].z * BLOCK_Z_OFFSET * chunk->getWidth() - j + 0.5f};
                                 vertex.normal = block.normals[5];
                                 vertex.color = { 0.f, 1.f, 0.f };   // Green
                                 vertex.uv = block.uvs[s];
@@ -316,7 +316,7 @@ namespace vmc {
                         case vmc::BlockFace::back:
                             for (int s = 0; s < 6; s++)
                             {
-                                vertex.position = { block.pos_z_face[s].x + BLOCK_X_OFFSET * j, block.pos_z_face[s].y + BLOCK_Y_OFFSET * i, block.pos_z_face[s].z * BLOCK_Z_OFFSET * k };
+                                vertex.position = { block.pos_z_face[s].x + BLOCK_X_OFFSET * k, block.pos_z_face[s].y + BLOCK_Y_OFFSET * i, block.pos_z_face[s].z * BLOCK_Z_OFFSET * j };
                                 vertex.normal = block.normals[2];
                                 vertex.color = { 1.f, 0.f, 0.f };   // Red
                                 vertex.uv = block.uvs[s];

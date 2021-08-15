@@ -9,8 +9,8 @@ int main()
 	vmc::VmcApp app{};
 	try 
 	{
-		//vmc::ChunkComponent testChunk{ 16 };
-		//testChunk.visibleBlockFacesTest();
+		//vmc::ChunkComponent testchunk{ 16 };
+		//testchunk.visibleBlockFacesTest();
 		app.run();
 	}
 	catch (const std::exception& e)

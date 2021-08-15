@@ -95,7 +95,7 @@ namespace vmc {
 		auto chunkObj = VmcGameObject::createGameObject();
 		std::shared_ptr<VmcModel> chunkModel = VmcModel::createChunkModelMesh(vmcDevice, chunkObj.chunk);
 		chunkObj.model = chunkModel;
-		chunkObj.transform.translation = { .0f, .0f, 2.5f };
+		chunkObj.transform.translation = { 2.0f, .0f, .0f };
 		chunkObj.transform.scale = { .5f, .5f, .5f };
 		gameObjects.push_back(std::move(chunkObj));
 	}
